@@ -20,7 +20,7 @@ IRC.addListener('raw',(message) => {
 // Main bot processor
 function parse(from,msg) {
   switch(msg.toLowerCase()) {
-    case "!roulette":  roulette(from);
+    case "!roulette":  roulette();
       break;
     case "!roll":  roll(from);
       break;
@@ -30,7 +30,7 @@ function parse(from,msg) {
 }
 
 // roulette
-function roulette(from) {
+function roulette() {
   if(!isRolling) {
     IRC.say(constants.IRC_CHAN,"Starting roll, type !roll - you have 30 seconds");
     isRolling=true;
@@ -56,9 +56,9 @@ function roulette(from) {
 function roll(from) {
   if(isRolling) {
     if(typeof participants[from] === 'undefined') {
-      roll = (Math.floor(Math.random() * 100)+1);
-      IRC.say(constants.IRC_CHAN,constants.BOLD+from+': '+roll+' out of 100');
-      participants[from]=roll;
+      _roll = (Math.floor(Math.random() * 100)+1);
+      IRC.say(constants.IRC_CHAN,constants.BOLD+from+': '+_roll+' out of 100');
+      participants[from]=_roll;
     }
     else
       IRC.say(constants.IRC_CHAN,'You already rolled, '+from);
